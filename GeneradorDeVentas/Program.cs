@@ -7,7 +7,7 @@ namespace GeneradorDeVentas
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
             var venta = new VentaService(new VentaEva());
             Console.WriteLine(venta.GenerarVenta().Nro);
