@@ -3,7 +3,7 @@ using GeneradorDeVentas.Models;
 
 namespace GeneradorDeVentas.Services
 {
-    public class VentaService
+    public class VentaService<T>
     {
         private readonly IVentaService _ventaService;
 
@@ -12,9 +12,9 @@ namespace GeneradorDeVentas.Services
             _ventaService = ventaService;
         }
 
-        public Venta GenerarVenta()
+        public T GenerarVenta<T>()
         {
-            var venta = _ventaService.GenerarVenta();
+            var venta = _ventaService.GenerarVenta<T>();
             return venta;
         }
     }

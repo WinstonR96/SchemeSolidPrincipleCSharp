@@ -4,6 +4,6 @@ namespace GeneradorDeVentas.Interfaces
 {
     public interface IVentaService
     {
-        public Venta GenerarVenta();
+        public T GenerarVenta<T>();
     }
 }

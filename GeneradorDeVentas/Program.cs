@@ -1,4 +1,5 @@
-﻿using GeneradorDeVentas.Resolvers;
+﻿using GeneradorDeVentas.Models;
+using GeneradorDeVentas.Resolvers;
 using GeneradorDeVentas.Services;
 using System;
 using System.Threading.Tasks;
@@ -9,8 +10,18 @@ namespace GeneradorDeVentas
     {
         static void Main(string[] args)
         {
-            var venta = new VentaService(new VentaEva());
-            Console.WriteLine(venta.GenerarVenta().Nro);
+            Console.WriteLine("Generando venta de EVA");
+            Console.WriteLine("----------------------");
+            var ventaEva = new VentaService<VentaEvaModel>(new EvaResolver());
+            var dataEva = ventaEva.GenerarVenta<VentaEvaModel>();
+            Console.WriteLine("Numero de factura: {0}",dataEva.Nro);
+
+
+            Console.WriteLine("\n----------------------\n");
+            Console.WriteLine("Generando venta de GK");
+            var ventaGk = new VentaService<VentaGkModel>(new GkResolver());
+            var dataGk = ventaGk.GenerarVenta<VentaGkModel>();
+            Console.WriteLine("Cliente: {0}", dataGk.cliente);
             Console.ReadLine();
         }        
     }

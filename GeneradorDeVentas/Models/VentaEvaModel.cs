@@ -1,7 +1,8 @@
 ﻿namespace GeneradorDeVentas.Models
 {
-    public class Venta
+    public class VentaEvaModel
     {
         public int Nro { get; set; }
+
     }
 }
