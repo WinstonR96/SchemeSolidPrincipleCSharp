@@ -1,4 +1,5 @@
-﻿using GeneradorDeVentas.Models;
+﻿using GeneradorDeVentas.Helpers;
+using GeneradorDeVentas.Models;
 using GeneradorDeVentas.Resolvers;
 using GeneradorDeVentas.Services;
 using System;
@@ -14,8 +15,9 @@ namespace GeneradorDeVentas
             Console.WriteLine("----------------------");
             var ventaEva = new VentaService<VentaEvaModel>(new EvaResolver());
             var dataEva = ventaEva.GenerarVenta<VentaEvaModel>();
+            var JsonEva = Utils.ConvertirAJson(dataEva);
             Console.WriteLine("Numero de factura: {0}",dataEva.Nro);
-
+            Console.WriteLine(JsonEva);
 
             Console.WriteLine("\n----------------------\n");
             Console.WriteLine("Generando venta de GK");
