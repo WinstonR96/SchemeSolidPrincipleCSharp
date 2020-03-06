@@ -1,5 +1,4 @@
 ﻿using GeneradorDeVentas.Interfaces;
-using GeneradorDeVentas.Models;
 
 namespace GeneradorDeVentas.Services
 {

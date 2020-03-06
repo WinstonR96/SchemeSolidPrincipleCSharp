@@ -1,5 +1,4 @@
-﻿using GeneradorDeVentas.Interfaces;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -14,7 +13,7 @@ namespace GeneradorDeVentas.Helpers
             return json;
         }
 
-        public static void WriteToLog(string logFile, string text)
+        public static void EscribirLog(string logFile, string text)
         {
             var log = File.AppendText(logFile);
             log.WriteLine(text);

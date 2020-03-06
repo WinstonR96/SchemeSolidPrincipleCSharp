@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
 
 namespace GeneradorDeVentas.Interfaces
 {
@@ -10,7 +8,7 @@ namespace GeneradorDeVentas.Interfaces
 
         public void Get(string parametro);
 
-        public void Post(string body);
+        public Task Post(string body);
 
     }
 }

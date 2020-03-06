@@ -20,7 +20,7 @@ namespace GeneradorDeVentas.Resolvers
         {
             Console.WriteLine("Generando venta de EVA");
             Console.WriteLine("----------------------");
-            Utils.WriteToLog(logFile, $"{dateTime} - Generando venta");
+            Utils.EscribirLog(logFile, $"{dateTime} - Generando venta");
             VentaEvaModel venta = new VentaEvaModel() { Nro = 1 };
             return (T)Convert.ChangeType(venta, typeof(T));
         }

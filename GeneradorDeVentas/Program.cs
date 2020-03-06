@@ -3,24 +3,26 @@ using GeneradorDeVentas.Helpers;
 using GeneradorDeVentas.Models;
 using GeneradorDeVentas.Resolvers;
 using GeneradorDeVentas.Services;
-using Microsoft.Extensions.Configuration;
 using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace GeneradorDeVentas
 {
     public class Program
     {
         private static string logFile;
-        private static string url;
         private static string pos;
+        public static DateTime dateTime = DateTime.Now;
         static void Main(string[] args)
         {
+            //Obtener las configuraciones del archivo de configuracion
             Configurar();
-            procesarVentas();
-            Console.ReadLine();
-                                                                
+            //Generamos las ventas
+            var obj = ProcesarVentas();
+            //Convertimos esa venta en JSON
+            var jsonObj = Utils.ConvertirAJson(obj);
+            //Enviamos ese JSON a la funcion de azure
+            EnviarData(jsonObj);
+            Console.ReadLine();                                                                
         }
 
         private static void Configurar()
@@ -30,43 +32,57 @@ namespace GeneradorDeVentas
 
             //Obteniendo configuración
             logFile = Utils.Configuracion()["Logging:LogFile"];
-            url = Utils.Configuracion()["Endpoint"];
             pos = Utils.Configuracion()["Pos"].ToLower();
-            var dateTime = DateTime.Now;
+            
+            Utils.EscribirLog(logFile, $"{dateTime} - Obteniendo configuración");
 
-            Utils.WriteToLog(logFile, $"{dateTime} - Obteniendo configuración");
         }
 
-        private static void procesarVentas()
+        private static object ProcesarVentas()
         {
-            switch (pos)
+            Console.WriteLine("Procesando ventas.....");
+            Utils.EscribirLog(logFile, $"{dateTime} - Procesando Ventas");
+            Pos _pos = (Pos)Enum.Parse(typeof(Pos), pos);
+            object result;
+            switch (_pos)
             {
-                case "eva":
-                    VentaEva();
+                case Pos.eva:
+                    result = VentaEva();
                     break;
-                case "gk":
-                    VentaGk();
+                case Pos.gk:
+                    result = VentaGk();
                     break;
-            }            
+                default:
+                    result = null;
+                    break;
+            }
+            return result;
         }
 
-        private static void VentaGk()
+        private static object VentaGk()
         {
-            Console.WriteLine("\n----------------------\n");
-            Console.WriteLine("Generando venta de GK");
+            //Instanciamos la clase Venta Service para que sea de tipo Gk
             var ventaGk = new VentaService<VentaGkModel>(new GkResolver());
+            //Generamos venta tipo Gk
             var dataGk = ventaGk.GenerarVenta<VentaGkModel>();
-            Console.WriteLine("Cliente: {0}", dataGk.cliente);
-            Console.ReadLine();
+            return dataGk;
         }
 
-        private static void VentaEva()
+        private static object VentaEva()
         {
+            //Instanciamos la clase Venta Service para que sea de tipo Eva
             var ventaEva = new VentaService<VentaEvaModel>(new EvaResolver());
+            //Generamos venta tipo eva
             var dataEva = ventaEva.GenerarVenta<VentaEvaModel>();
-            var JsonEva = Utils.ConvertirAJson(dataEva);
-            Console.WriteLine("Numero de factura: {0}", dataEva.Nro);
-            Console.WriteLine(JsonEva);
+            //Convertimos la venta en Json
+            return dataEva;
+        }
+
+        private static void EnviarData(string data)
+        {
+            //Instanciamos la clase Cloud Service
+            var cloud = new CloudService(new AzureResolver());
+            cloud.Post(data);
         }
 
     }

@@ -1,6 +1,4 @@
-﻿using GeneradorDeVentas.Models;
-
-namespace GeneradorDeVentas.Interfaces
+﻿namespace GeneradorDeVentas.Interfaces
 {
     public interface IVentaService
     {

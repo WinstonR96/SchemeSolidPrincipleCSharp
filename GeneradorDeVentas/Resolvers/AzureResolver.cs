@@ -1,22 +1,31 @@
-﻿using GeneradorDeVentas.Interfaces;
+﻿using GeneradorDeVentas.Helpers;
+using GeneradorDeVentas.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace GeneradorDeVentas.Resolvers
 {
     public class AzureResolver : ICloudService
     {
         public string url { get; set; }
+        static HttpClient httpClient = new HttpClient();
+
+        public AzureResolver()
+        {
+            this.url = Utils.Configuracion()["Endpoint"]; ;
+        }
 
         public void Get(string parametro)
         {
             throw new NotImplementedException();
         }
 
-        public void Post(string body)
+        public async Task Post(string body)
         {
-            throw new NotImplementedException();
+            var httpContent = new StringContent(body);
+            HttpResponseMessage response = await httpClient.PostAsync(url, httpContent);
+            Console.WriteLine("Respuesta de la funcion Azure: {0}", response);
         }
     }
 }
