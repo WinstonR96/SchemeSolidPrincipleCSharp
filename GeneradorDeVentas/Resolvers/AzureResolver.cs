@@ -3,11 +3,13 @@ using GeneradorDeVentas.Interfaces;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace GeneradorDeVentas.Resolvers
 {
     public class AzureResolver : ICloudService
     {
+        private readonly ILogger log = LoggerApp.Instance.GetLogger.ForContext<AzureResolver>();
         public string url { get; set; }
         static HttpClient httpClient = new HttpClient();
 
@@ -23,9 +25,16 @@ namespace GeneradorDeVentas.Resolvers
 
         public async Task Post(string body)
         {
-            var httpContent = new StringContent(body);
-            HttpResponseMessage response = await httpClient.PostAsync(url, httpContent);
-            Console.WriteLine("Respuesta de la funcion Azure: {0}", response);
+            log.Information("Iniciando proceso de envio de data");
+            try
+            {
+                var httpContent = new StringContent(body);
+                HttpResponseMessage response = await httpClient.PostAsync(url, httpContent);
+                log.Information(response.ReasonPhrase);
+            }catch(Exception ex)
+            {
+                log.Error(ex.Message);
+            }
         }
     }
 }

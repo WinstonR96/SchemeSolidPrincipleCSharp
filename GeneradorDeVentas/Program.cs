@@ -4,14 +4,15 @@ using GeneradorDeVentas.Models;
 using GeneradorDeVentas.Resolvers;
 using GeneradorDeVentas.Services;
 using System;
+using Serilog;
 
 namespace GeneradorDeVentas
 {
     public class Program
     {
-        private static string logFile;
         private static string pos;
-        public static DateTime dateTime = DateTime.Now;
+        private static readonly ILogger log = LoggerApp.Instance.GetLogger.ForContext<Program>();
+
         static void Main(string[] args)
         {
             //Obtener las configuraciones del archivo de configuracion
@@ -22,26 +23,26 @@ namespace GeneradorDeVentas
             var jsonObj = Utils.ConvertirAJson(obj);
             //Enviamos ese JSON a la funcion de azure
             EnviarData(jsonObj);
-            Console.ReadLine();                                                                
+            Console.ReadLine();
         }
 
         private static void Configurar()
         {
-            Console.WriteLine("Inicializando");
-            Console.WriteLine("Obteniendo configuración.....");
+            log.Information("Inicializando");
+            log.Information("Obteniendo configuración.....");
 
             //Obteniendo configuración
-            logFile = Utils.Configuracion()["Logging:LogFile"];
             pos = Utils.Configuracion()["Pos"].ToLower();
+
             
-            Utils.EscribirLog(logFile, $"{dateTime} - Obteniendo configuración");
+
+            log.Information("Configuración Correcta");
 
         }
 
         private static object ProcesarVentas()
         {
-            Console.WriteLine("Procesando ventas.....");
-            Utils.EscribirLog(logFile, $"{dateTime} - Procesando Ventas");
+            log.Information("Procesando ventas");
             Pos _pos = (Pos)Enum.Parse(typeof(Pos), pos);
             object result;
             switch (_pos)
