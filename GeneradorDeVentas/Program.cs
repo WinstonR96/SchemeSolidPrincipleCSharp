@@ -65,7 +65,7 @@ namespace GeneradorDeVentas
             //Instanciamos la clase Venta Service para que sea de tipo Gk
             var ventaGk = new VentaService<VentaGkModel>(new GkResolver());
             //Generamos venta tipo Gk
-            var dataGk = ventaGk.GenerarVenta<VentaGkModel>();
+            var dataGk = ventaGk.GenerarVenta();
             return dataGk;
         }
 
@@ -74,7 +74,7 @@ namespace GeneradorDeVentas
             //Instanciamos la clase Venta Service para que sea de tipo Eva
             var ventaEva = new VentaService<VentaEvaModel>(new EvaResolver());
             //Generamos venta tipo eva
-            var dataEva = ventaEva.GenerarVenta<VentaEvaModel>();
+            var dataEva = ventaEva.GenerarVenta();
             //Convertimos la venta en Json
             return dataEva;
         }

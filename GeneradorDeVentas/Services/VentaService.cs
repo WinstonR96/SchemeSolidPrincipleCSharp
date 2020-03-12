@@ -11,7 +11,7 @@ namespace GeneradorDeVentas.Services
             _ventaService = ventaService;
         }
 
-        public T GenerarVenta<T>()
+        public T GenerarVenta()
         {
             var venta = _ventaService.GenerarVenta<T>();
             return venta;
