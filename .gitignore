@@ -40,3 +40,6 @@ TestResults/
 # NuGet Packages Directory
 packages/
 packages/*
+
+# Config File
+appsettings.json

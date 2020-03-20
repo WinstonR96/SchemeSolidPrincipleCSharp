@@ -1,0 +1,7 @@
+{
+  "Logging": {
+    "LogFile": "Path al archivo de log"
+  },
+  "Endpoint": "url azure function",
+  "Pos":  "[eva || gk]"
+}
