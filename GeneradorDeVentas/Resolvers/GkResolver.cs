@@ -1,5 +1,5 @@
 ﻿using GeneradorDeVentas.Interfaces;
-using GeneradorDeVentas.Models;
+using GeneradorDeVentas.Models.Gk;
 using GeneradorDeVentas.Helpers;
 using Serilog;
 using System;

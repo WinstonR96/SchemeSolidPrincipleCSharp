@@ -1,4 +1,4 @@
-﻿namespace GeneradorDeVentas.Models
+﻿namespace GeneradorDeVentas.Models.Gk
 {
     public class VentaGkModel
     {

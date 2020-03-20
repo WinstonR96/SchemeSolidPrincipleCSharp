@@ -1,6 +1,7 @@
 ﻿using GeneradorDeVentas.Enums;
 using GeneradorDeVentas.Helpers;
-using GeneradorDeVentas.Models;
+using GeneradorDeVentas.Models.Gk;
+using GeneradorDeVentas.Models.Eva;
 using GeneradorDeVentas.Resolvers;
 using GeneradorDeVentas.Services;
 using System;
