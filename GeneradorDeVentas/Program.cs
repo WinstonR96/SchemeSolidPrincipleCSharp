@@ -14,7 +14,7 @@ namespace GeneradorDeVentas
         private static string pos;
         private static readonly ILogger log = LoggerApp.Instance.GetLogger.ForContext<Program>();
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //Obtener las configuraciones del archivo de configuracion
             Configurar();
@@ -35,30 +35,19 @@ namespace GeneradorDeVentas
             //Obteniendo configuración
             pos = Utils.Configuracion()["Pos"].ToLower();
 
-            
-
             log.Information("Configuración Correcta");
-
         }
 
         private static object ProcesarVentas()
         {
             log.Information("Procesando ventas");
             Pos _pos = (Pos)Enum.Parse(typeof(Pos), pos);
-            object result;
-            switch (_pos)
+            return _pos switch
             {
-                case Pos.eva:
-                    result = VentaEva();
-                    break;
-                case Pos.gk:
-                    result = VentaGk();
-                    break;
-                default:
-                    result = null;
-                    break;
-            }
-            return result;
+                Pos.eva => VentaEva(),
+                Pos.gk => VentaGk(),
+                _ => null,
+            };
         }
 
         private static object VentaGk()
@@ -86,6 +75,5 @@ namespace GeneradorDeVentas
             var cloud = new CloudService(new AzureResolver());
             cloud.Post(data);
         }
-
     }
 }

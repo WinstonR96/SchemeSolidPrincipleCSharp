@@ -62,7 +62,6 @@ namespace GeneradorDeVentas.Resolvers
                         valor = "1950,00"
                     }
                 }
-
             };
             return (T)Convert.ChangeType(venta, typeof(T));
         }

@@ -9,7 +9,7 @@ namespace GeneradorDeVentas.Helpers
     {
         private static readonly ILogger log = LoggerApp.Instance.GetLogger.ForContext<Utils>();
 
-        public static string ConvertirAJson(Object obj)
+        public static string ConvertirAJson(object obj)
         {
             log.Information("Mapeando a JSON");
             string json = "";
@@ -25,14 +25,12 @@ namespace GeneradorDeVentas.Helpers
             return json;
         }
 
-        
         public static IConfigurationRoot Configuracion()
         {
             var builder = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-            var configuration = builder.Build();
-            return configuration;
+            return builder.Build();
         }
     }
 }

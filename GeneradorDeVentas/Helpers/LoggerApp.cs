@@ -11,7 +11,7 @@ namespace GeneradorDeVentas.Helpers
         private string FormatLine { get; set; }
 
         /// <summary>
-        /// Obtiene la instancia actual 
+        /// Obtiene la instancia actual
         /// </summary>
         public Logger GetLogger { get; set; }
 
@@ -38,7 +38,7 @@ namespace GeneradorDeVentas.Helpers
             }
         }
 
-        LoggerApp()
+        public LoggerApp()
         {
             ConfigLog();
         }

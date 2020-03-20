@@ -9,6 +9,5 @@ namespace GeneradorDeVentas.Interfaces
         public void Get(string parametro);
 
         public Task Post(string body);
-
     }
 }

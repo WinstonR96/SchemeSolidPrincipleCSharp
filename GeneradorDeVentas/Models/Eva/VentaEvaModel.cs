@@ -17,6 +17,5 @@ namespace GeneradorDeVentas.Models.Eva
         public string valor_cambio { get; set; }
         public List<Articulo> Articulos { get; set; }
         public List<MedioDePago> MediosDePago { get; set; }
-
     }
 }

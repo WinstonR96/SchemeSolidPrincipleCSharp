@@ -11,11 +11,11 @@ namespace GeneradorDeVentas.Resolvers
     {
         private readonly ILogger log = LoggerApp.Instance.GetLogger.ForContext<AzureResolver>();
         public string url { get; set; }
-        static HttpClient httpClient = new HttpClient();
+        private static readonly HttpClient httpClient = new HttpClient();
 
         public AzureResolver()
         {
-            this.url = Utils.Configuracion()["Endpoint"]; ;
+            this.url = Utils.Configuracion()["Endpoint"];
         }
 
         public void Get(string parametro)
@@ -29,7 +29,7 @@ namespace GeneradorDeVentas.Resolvers
             try
             {
                 var httpContent = new StringContent(body);
-                HttpResponseMessage response = await httpClient.PostAsync(url, httpContent);
+                HttpResponseMessage response = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
                 log.Information(response.ReasonPhrase);
             }catch(Exception ex)
             {
