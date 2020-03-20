@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace GeneradorDeVentas.Interfaces
 {
@@ -8,6 +9,6 @@ namespace GeneradorDeVentas.Interfaces
 
         public void Get(string parametro);
 
-        public Task Post(string body);
+        public Task<string> Post(string body);
     }
 }

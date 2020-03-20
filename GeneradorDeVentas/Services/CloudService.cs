@@ -16,9 +16,10 @@ namespace GeneradorDeVentas.Services
             _cloudService.Get(parametro);
         }
 
-        public void Post(string body)
+        public string Post(string body)
         {
-            _cloudService.Post(body);
+            var resultado = _cloudService.Post(body).Result;
+            return resultado;
         }
     }
 }

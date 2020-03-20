@@ -23,18 +23,21 @@ namespace GeneradorDeVentas.Resolvers
             throw new NotImplementedException();
         }
 
-        public async Task Post(string body)
+        public async Task<string> Post(string body)
         {
+            string response = null;
             log.Information("Iniciando proceso de envio de data");
             try
             {
                 var httpContent = new StringContent(body);
-                HttpResponseMessage response = await httpClient.PostAsync(url, httpContent).ConfigureAwait(false);
-                log.Information(response.ReasonPhrase);
+                var responseHttp = await httpClient.PostAsync(url, httpContent);
+                response = responseHttp.Content.ReadAsStringAsync().Result;
+                log.Information(response);
             }catch(Exception ex)
             {
                 log.Error(ex.Message);
             }
+            return response;
         }
     }
 }

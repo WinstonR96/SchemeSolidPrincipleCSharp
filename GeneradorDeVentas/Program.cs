@@ -24,6 +24,7 @@ namespace GeneradorDeVentas
             var jsonObj = Utils.ConvertirAJson(obj);
             //Enviamos ese JSON a la funcion de azure
             EnviarData(jsonObj);
+
             Console.ReadLine();
         }
 

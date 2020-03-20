@@ -6,7 +6,7 @@ using Xunit;
 
 namespace TestVentaService
 {
-    public class VentaEva
+    public class VentaEvaTest
     {
         [Fact]
         public void Tipo_De_Venta_Es_Eva()
